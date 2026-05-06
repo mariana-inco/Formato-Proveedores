@@ -139,9 +139,9 @@ export default function FormularioActualizacionProveedor() {
   const [formularioValido, setFormularioValido] = useState(false);
   const referenciaFormulario = useRef<HTMLFormElement | null>(null);
 
-  function validarFormulario() {
+  function obtenerMensajeErroresFormulario() {
     const formularioActual = referenciaFormulario.current;
-    if (!formularioActual) return false;
+    if (!formularioActual) return "No se pudo validar el formulario.";
 
     const formulario = new FormData(formularioActual);
     const empresa = obtenerTexto(formulario, "empresa");
@@ -149,13 +149,51 @@ export default function FormularioActualizacionProveedor() {
     const celular = obtenerTexto(formulario, "celular");
     const email = obtenerTexto(formulario, "email");
 
-    const emailValido = email.length > 0 && email.includes("@") && email.includes(".");
+    const errores: string[] = [];
 
-    return empresa.length > 0 && contacto.length > 0 && celular.length > 0 && emailValido;
+    if (empresa.length === 0) {
+      errores.push("Nombre de la empresa");
+    }
+    if (contacto.length === 0) {
+      errores.push("Nombre del contacto");
+    }
+    if (celular.length === 0) {
+      errores.push("Teléfono celular");
+    }
+    if (email.length === 0) {
+      errores.push("Correo electrónico");
+    }
+
+    const emailValido = email.length > 0 && email.includes("@") && email.includes(".");
+    if (email.length > 0 && !emailValido) {
+      errores.push("Correo electrónico debe incluir @ y un dominio válido");
+    }
+
+    if (errores.length === 0) {
+      return null;
+    }
+
+    const camposFaltantes = errores.filter((error) => !error.includes("Correo electrónico debe incluir"));
+    const mensajeCampos = camposFaltantes.length
+      ? `Faltan los siguientes campos: ${camposFaltantes.join(", ")}.`
+      : "";
+
+    const mensajeEmailInvalido = errores.some((error) => error.includes("Correo electrónico debe incluir"))
+      ? " El correo electrónico debe tener @ y un dominio válido."
+      : "";
+
+    return `${mensajeCampos}${mensajeEmailInvalido}`.trim();
+  }
+
+  function validarFormulario() {
+    return obtenerMensajeErroresFormulario() === null;
   }
 
   const manejarCambioFormulario = () => {
     setFormularioValido(validarFormulario());
+    if (validarFormulario()) {
+      setMensajeGuardado(null);
+    }
   };
 
   const manejarArrastre = useCallback(
@@ -205,8 +243,9 @@ export default function FormularioActualizacionProveedor() {
       return;
     }
 
-    if (!validarFormulario()) {
-      setMensajeGuardado("Por favor, completa todos los campos requeridos (*) antes de enviar.");
+    const mensajeError = obtenerMensajeErroresFormulario();
+    if (mensajeError) {
+      setMensajeGuardado(mensajeError);
       return;
     }
 
