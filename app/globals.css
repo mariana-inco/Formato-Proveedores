@@ -1,0 +1,54 @@
+@import "tailwindcss";
+
+:root {
+  --fondo: #f4efe7;
+  --texto: #152033;
+  --fuente-principal: "Segoe UI", "Trebuchet MS", Arial, sans-serif;
+  --fuente-mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+}
+
+@theme inline {
+  --color-background: var(--fondo);
+  --color-foreground: var(--texto);
+  --font-sans: var(--fuente-principal);
+  --font-mono: var(--fuente-mono);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  color-scheme: light;
+}
+
+body {
+  min-height: 100vh;
+  margin: 0;
+  background:
+    radial-gradient(circle at top left, rgba(251, 191, 36, 0.2), transparent 30%),
+    radial-gradient(circle at top right, rgba(56, 189, 248, 0.16), transparent 26%),
+    linear-gradient(180deg, #f8f4ee 0%, #efe5d8 100%);
+  color: var(--texto);
+  font-family: var(--fuente-principal);
+  text-rendering: optimizeLegibility;
+}
+
+button,
+input,
+textarea,
+select {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(251, 191, 36, 0.28);
+  color: #111827;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

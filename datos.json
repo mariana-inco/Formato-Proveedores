@@ -1,0 +1,15 @@
+[
+  {
+    "empresa": "Incomineria",
+    "contacto": "Mariana Gomez",
+    "celular": "3129756732",
+    "fijo": "65322131",
+    "email": "prueba@gmail.com",
+    "rut": {
+      "nombre": "11. RUT GBG SAS 24-03-2026.pdf",
+      "tipo": "application/pdf",
+      "tamanoBytes": 269769
+    },
+    "fechaGuardado": "2026-04-24T16:51:37.531Z"
+  }
+]
