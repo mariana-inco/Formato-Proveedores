@@ -134,6 +134,7 @@ export default function FormularioActualizacionProveedor() {
   const [archivoRut, setArchivoRut] = useState<File | null>(null);
   const [mensajeRut, setMensajeRut] = useState<string | null>(null);
   const [mensajeGuardado, setMensajeGuardado] = useState<string | null>(null);
+  const [mensajeErrorValidacion, setMensajeErrorValidacion] = useState<string | null>(null);
   const [enviando, setEnviando] = useState(false);
   const [claveEntradaRut, setClaveEntradaRut] = useState(0);
   const [formularioValido, setFormularioValido] = useState(false);
@@ -190,8 +191,10 @@ export default function FormularioActualizacionProveedor() {
   }
 
   const manejarCambioFormulario = () => {
-    setFormularioValido(validarFormulario());
-    if (validarFormulario()) {
+    const mensajeError = obtenerMensajeErroresFormulario();
+    setFormularioValido(mensajeError === null);
+    setMensajeErrorValidacion(mensajeError);
+    if (mensajeError === null) {
       setMensajeGuardado(null);
     }
   };
@@ -245,12 +248,14 @@ export default function FormularioActualizacionProveedor() {
 
     const mensajeError = obtenerMensajeErroresFormulario();
     if (mensajeError) {
-      setMensajeGuardado(mensajeError);
+      setMensajeErrorValidacion(mensajeError);
+      setMensajeGuardado(null);
       return;
     }
 
     setEnviando(true);
     setMensajeGuardado(null);
+    setMensajeErrorValidacion(null);
 
     const formulario = new FormData(formularioActual);
     const datosProveedor: DatosProveedor = {
@@ -562,7 +567,11 @@ export default function FormularioActualizacionProveedor() {
             <p className="text-sm leading-6 text-slate-500">
               Revisa los datos antes de enviar.
             </p>
-            {mensajeGuardado ? (
+            {mensajeErrorValidacion ? (
+              <p className="text-sm font-medium text-rose-700">
+                {mensajeErrorValidacion}
+              </p>
+            ) : mensajeGuardado ? (
               <p className="text-sm font-medium text-emerald-700">
                 {mensajeGuardado}
               </p>

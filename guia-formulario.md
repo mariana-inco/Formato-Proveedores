@@ -1,14 +1,14 @@
 # Guia del formulario de proveedores
 
-Este archivo resume, en forma corta, que usa este proyecto y para que sirve cada pieza.
+Este archivo resume, en forma corta, qué usa este proyecto y para qué sirve cada pieza.
 
-El objetivo es actualizar datos de proveedores de forma rapida, clara y con una carga sencilla del RUT.
+El objetivo es actualizar datos de proveedores de forma rápida, clara y con una carga sencilla del RUT.
 
 ## Lo que usamos
 
-- `Next.js`: organiza la pagina, el layout general y la estructura de la app.
+- `Next.js`: organiza la página, el layout general y la estructura de la app.
 - `React`: maneja la parte interactiva del formulario, como estados y cambios en pantalla.
-- `TypeScript`: ayuda a mantener el codigo mas ordenado y con menos errores.
+- `TypeScript`: ayuda a mantener el código más ordenado y con menos errores.
 - `Tailwind CSS`: define estilos, espaciados, colores y comportamiento responsive sin crear hojas CSS largas.
 - `react-dropzone`: permite subir el RUT con arrastrar y soltar, o buscando el archivo desde el equipo.
 
@@ -18,24 +18,31 @@ El objetivo es actualizar datos de proveedores de forma rapida, clara y con una 
 - `app/_componentes/formulario-actualizacion.tsx`: contiene el formulario, los campos, la carga del RUT y el guardado de datos.
 - `app/api/datos/route.ts`: recibe la información y la guarda en `datos.json`.
 - `datos.json`: guarda cada registro enviado desde el formulario.
-- `app/globals.css`: deja la base visual del proyecto, como tipografia, fondo y reglas globales.
-- `app/layout.tsx`: define la estructura global y los metadatos de la pagina.
+- `app/globals.css`: deja la base visual del proyecto, como tipografía, fondo y reglas globales.
+- `app/layout.tsx`: define la estructura global y los metadatos de la página.
 - `next.config.ts`: guarda ajustes del proyecto para Next.js.
 
-## Que hace cada parte del formulario
+## Qué hace cada parte del formulario
 
-- Informacion de la empresa: valida el nombre con el que esta registrado el proveedor.
-- Datos de contacto: permite guardar quien responde por la ficha y como localizarlo.
-- Carga de documentos: adjunta el RUT con estados de vacio, cargado o error.
-- Guardado en JSON: junta los datos, los envía al servidor y los deja en `datos.json`.
+- Información de la empresa: valida que el nombre solo tenga letras y espacios.
+- Datos de contacto: valida que el nombre del contacto solo tenga letras y espacios, el teléfono solo números y el correo tenga `@` y un dominio válido.
+- Carga de documentos: adjunta el RUT con estados de vacío, cargado o error.
+- Guardado en JSON: junta los datos, los envía al servidor y guarda el registro en `datos.json`.
+
+## Validaciones importantes
+
+- El botón de envío se deshabilita si faltan campos obligatorios.
+- Se muestra un mensaje claro indicando qué campos faltan completar.
+- El correo debe contener `@` y un dominio para poder enviar la actualización.
+- El nombre de la empresa y el nombre del contacto no aceptan números ni caracteres especiales.
 
 ## Flujo simple
 
-1. La persona completa los datos basicos.
+1. La persona completa los datos básicos.
 2. Adjunta el RUT.
-3. Revisa que todo este correcto.
-4. Guarda la informacion en `datos.json` y revisa la consola si quieres ver el registro.
+3. Revisa que todo esté correcto y que no haya mensajes de error.
+4. Envía la información y se guarda en `datos.json`.
 
-## Nota rapida
+## Nota rápida
 
-La idea de este formato es que se sienta corto, claro y facil de completar, sin elementos que distraigan.
+La idea de este formato es que se sienta corto, claro y fácil de completar, sin elementos que distraigan.

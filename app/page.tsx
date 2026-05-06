@@ -27,7 +27,7 @@ export default function Inicio() {
       />
 
       <div className="mx-auto grid w-full max-w-6xl gap-6 lg:grid-cols-[0.74fr_1.26fr] lg:items-start">
-        <aside className="order-2 overflow-hidden rounded-[30px] border border-slate-900/10 bg-slate-950 px-5 py-6 text-white shadow-[0_24px_60px_rgba(15,23,42,0.18)] lg:sticky lg:top-6 lg:order-1 lg:self-start lg:px-6 lg:py-7">
+        <aside className="order-2 overflow-hidden rounded-[30px] border border-slate-900/10 bg-slate-950 px-5 py-6 text-white shadow-[0_24px_60px_rgba(15,23,42,0.18)] lg:sticky lg:top-6 lg:order-1 lg:self-start lg:px-6 lg:py-7 min-w-0">
           <div className="space-y-4">
             <span className="inline-flex w-fit rounded-full border border-white/10 bg-white/10 px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.24em] text-white/75">
               Guía rápida
@@ -68,7 +68,7 @@ export default function Inicio() {
           </div>
         </aside>
 
-        <section className="order-1 lg:order-2">
+        <section className="order-1 lg:order-2 min-w-0">
           <FormularioActualizacionProveedor />
         </section>
       </div>
